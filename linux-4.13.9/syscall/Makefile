@@ -1,1 +1,1 @@
-obj-y:=processInfo.o listSleeping.o
+obj-y:=processinfo.o listsleeping.o printmsg.o

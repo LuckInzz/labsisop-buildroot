@@ -3,9 +3,10 @@
 #include <linux/sched.h>
 #include <linux/syscalls.h>
 #include <linux/uaccess.h>  // necessário para copy_to_user
-#include "listSleeping.h"
 
-asmlinkage long sys_listSleepingProcesses(char __user *buf, int size) {
+#include "listsleeping.h"
+
+asmlinkage long sys_listsleepingprocesses(char __user *buf, int size) {
 	struct task_struct *proces;
 	char kbuf[1024]; // buffer no kernel
 	int bufsz = 0;            // tamanho atual preenchido no buffer

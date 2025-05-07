@@ -1,0 +1,1 @@
+asmlinkage long sys_printmsg(const char __user *user_msg);

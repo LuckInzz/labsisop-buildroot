@@ -2,9 +2,9 @@
 #include <linux/init.h>
 #include <linux/sched.h>
 #include <linux/syscalls.h>
-#include "processInfo.h"
+#include "processinfo.h"
   
-asmlinkage long sys_listProcessInfo(long pid, const char __user *buf, int size) {
+asmlinkage long sys_listprocessinfo(long pid, const char __user *buf, int size) {
 	struct task_struct *proces;
 	unsigned char kbuf[256];
 	int bufsz;

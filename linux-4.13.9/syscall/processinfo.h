@@ -1,0 +1,1 @@
+asmlinkage long sys_listprocessinfo(long pid, const char __user *buf, int size);
