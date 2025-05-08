@@ -5,14 +5,17 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUFFER_LENGTH 512  // Tamanho do buffer de comunicação
+#define BUFFER_LENGTH 512   // Tamanho do buffer de comunicação
 
 int main() {
     int ret, fd;
     char receive[BUFFER_LENGTH];     // Buffer para leitura do driver
     char stringToSend[BUFFER_LENGTH]; // Buffer para comando de envio
+    char command[10];
+    unsigned int size;
+    char data_hex[BUFFER_LENGTH];
 
-    printf("Iniciando teste do driver XTEA...\n");
+    printf("Iniciando teste do driver XTEA (com chave por parâmetro)...\n");
 
     // Abre o dispositivo xtea_driver para leitura e escrita
     fd = open("/dev/xtea_driver", O_RDWR);
@@ -21,15 +24,22 @@ int main() {
         return errno;
     }
 
-    // Exemplo de comando: enc followed by key[0..3], tamanho, e os dados
+    // Exemplo de comando: enc/dec, tamanho, e os dados
     printf("Digite o comando no formato:\n");
-    printf("enc <key0> <key1> <key2> <key3> <size> <dados_hexadecimais>\n");
-    printf("Exemplo:\n");
-    printf("enc f0e1d2c3 b4a59687 78695a4b 3c2d1e0f 16 aabbccddeeff00112233445566778899aabbccddeeff\n\n");
+    printf("<enc|dec> <size> <dados_hexadecimais>\n");
+    printf("Exemplo de encriptação:\n");
+    printf("enc 16 aabbccddeeff00112233445566778899aabbccddeeff\n");
+    printf("Exemplo de decriptação:\n");
+    printf("dec 32 89abcdef0123456789abcdef01234567aabbccddeeff00112233445566778899\n\n");
 
-    // Lê a linha completa (com espaços)
     printf("Digite o comando:\n");
-    scanf(" %[^\n]%*c", stringToSend);
+    if (scanf("%9s %u %s", command, &size, data_hex) != 3) {
+        fprintf(stderr, "Formato de comando inválido.\n");
+        close(fd);
+        return EXIT_FAILURE;
+    }
+
+    snprintf(stringToSend, BUFFER_LENGTH, "%s %u %s", command, size, data_hex);
 
     // Envia o comando para o driver
     printf("Enviando comando ao driver: [%s]\n", stringToSend);
