@@ -1,0 +1,14 @@
+#!/bin/sh
+case "$1" in
+    start)
+        echo 3 > /proc/sys/vm/drop_caches;
+        ;;
+    stop)
+        exit 1
+        ;;
+    *)
+        exit 1
+        ;;
+esac
+
+exit 0
