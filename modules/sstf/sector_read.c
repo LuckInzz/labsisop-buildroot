@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 	system("echo 2 > /sys/block/sdb/queue/nomerges");
 	system("echo 4 > /sys/block/sdb/queue/max_sectors_kb"); 
 	system("echo 0 > /sys/block/sdb/queue/read_ahead_kb");
+	system("echo sstf > /sys/block/sdb/queue/scheduler");
 
 	// Cria processos para gerar requisições concorrentes
 	printf("Forking %d processes with %d reads each...\n", num_forks, num_reads);

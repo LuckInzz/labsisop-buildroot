@@ -68,9 +68,11 @@ static int sstf_dispatch(struct request_queue *q, int force) {
         list_del_init(&best->queuelist); // Remove a melhor requisição da lista.
         elv_dispatch_sort(q, best); // Despacha a melhor requisição.
         current_sector = blk_rq_pos(best); // Obtém o setor da requisição despachada.
-        if (nd->dsp_sequence > 1) {
+        if (nd->dsp_sequence > 1) { // Se não for a primeira requisição despachada.
+            // Calcula a distância total percorrida desde a última requisição despachada.
             nd->total_dispatch_distance += abs((long long)current_sector - (long long)nd->previous_dispatch_sector);
         } else {
+            // Se for a primeira requisição despachada, calcula a distância desde o setor 0.
             nd->total_dispatch_distance += current_sector; // Distância desde o setor 0 na primeira requisição.
         }
         nd->previous_dispatch_sector = current_sector; // Atualiza o setor da última requisição despachada.
