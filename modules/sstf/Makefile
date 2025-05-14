@@ -1,7 +1,7 @@
-obj-m := sstf-iosched.o
+obj-m := sstf_iosched.o
 BUILDROOT_DIR := ../..
 KDIR := $(BUILDROOT_DIR)/output/build/linux-custom
-COMPILER := $(BUILDROOT_DIR)/output/host/bin/i686-buildroot-linux-uclibc-gcc
+COMPILER := $(BUILDROOT_DIR)/output/host/bin/i686-buildroot-linux-gnu-gcc
 
 all:
 	$(MAKE) -C $(KDIR) M=$$PWD
@@ -15,5 +15,5 @@ clean:
 	rm -f *.o *.ko .*.cmd
 	rm -f modules.order
 	rm -f Module.symvers
-	rm -f sstf-iosched.mod.c
+	rm -f sstf_iosched.mod.c
 	rm -f sector_read

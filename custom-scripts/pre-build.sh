@@ -15,3 +15,4 @@ chmod +x $BASE_DIR/target/etc/init.d/S30clean_cache
 #make -C $BASE_DIR/../modules/simple_driver/
 #make -C $BASE_DIR/../modules/simple_driver_list/
 #make -C $BASE_DIR/../modules/xtea_driver/
+make -C $BASE_DIR/../modules/sstf/

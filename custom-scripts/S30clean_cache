@@ -2,6 +2,7 @@
 case "$1" in
     start)
         echo 3 > /proc/sys/vm/drop_caches;
+        echo sstf > /sys/block/sdb/queue/scheduler
         ;;
     stop)
         exit 1
